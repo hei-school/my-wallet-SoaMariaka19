@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class Wallet
 {
@@ -203,10 +204,16 @@ class Wallet
     public void SetPersonalInfo()
     {
         Console.WriteLine("\nEnter your personal information:");
-        personalInfo["Name"] = Console.ReadLine();
-        personalInfo["Address"] = Console.ReadLine();
-        personalInfo["Phone Number"] = Console.ReadLine();
+        SetPersonalInfoField("Name");
+        SetPersonalInfoField("Address");
+        SetPersonalInfoField("Phone Number");
         Console.WriteLine("Personal information set successfully.");
+    }
+
+    private void SetPersonalInfoField(string fieldName)
+    {
+        Console.Write($"{fieldName}: ");
+        personalInfo[fieldName] = Console.ReadLine();
     }
 }
 
@@ -254,9 +261,16 @@ class Program
             }
             else if (choice == "2")
             {
+                double amount;
                 Console.Write("Enter the amount to add (Ar): ");
-                double amount = double.Parse(Console.ReadLine());
-                userWallet.AddMoney(amount);
+                if (double.TryParse(Console.ReadLine(), out amount))
+                {
+                    userWallet.AddMoney(amount);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
             }
             else if (choice == "3")
             {
@@ -269,8 +283,7 @@ class Program
             else if (choice == "5")
             {
                 Console.Write("Enter the credit card number: ");
-                string creditCard = Console.ReadLine();
-                userWallet.AddCreditCard(creditCard);
+                userWallet.AddCreditCard(Console.ReadLine());
             }
             else if (choice == "6")
             {
@@ -280,8 +293,7 @@ class Program
             else if (choice == "7")
             {
                 Console.Write("Enter the photo name: ");
-                string photo = Console.ReadLine();
-                userWallet.AddPhoto(photo);
+                userWallet.AddPhoto(Console.ReadLine());
             }
             else if (choice == "8")
             {
@@ -293,33 +305,36 @@ class Program
             }
             else if (choice == "10")
             {
+                double amount;
                 Console.Write("Enter the amount to withdraw (Ar): ");
-                double amount = double.Parse(Console.ReadLine());
-                userWallet.WithdrawMoney(amount);
+                if (double.TryParse(Console.ReadLine(), out amount))
+                {
+                    userWallet.WithdrawMoney(amount);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
             }
             else if (choice == "11")
             {
                 Console.Write("Enter the card number to remove: ");
-                string cardToRemove = Console.ReadLine();
-                userWallet.RemoveCard(cardToRemove);
+                userWallet.RemoveCard(Console.ReadLine());
             }
             else if (choice == "12")
             {
                 Console.Write("Enter the photo name to remove: ");
-                string photoToRemove = Console.ReadLine();
-                userWallet.RemovePhoto(photoToRemove);
+                userWallet.RemovePhoto(Console.ReadLine());
             }
             else if (choice == "13")
             {
                 Console.Write("Enter the card number to search: ");
-                string cardToSearch = Console.ReadLine();
-                userWallet.SearchCard(cardToSearch);
+                userWallet.SearchCard(Console.ReadLine());
             }
             else if (choice == "14")
             {
                 Console.Write("Enter the photo name to search: ");
-                string photoToSearch = Console.ReadLine();
-                userWallet.SearchPhoto(photoToSearch);
+                userWallet.SearchPhoto(Console.ReadLine());
             }
             else if (choice == "15")
             {
